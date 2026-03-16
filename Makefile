@@ -17,6 +17,7 @@ dev:
 	npm run dev
 
 build: prepare-docker
+	cp index.html /project/
 	npm run build
 
 preview:
