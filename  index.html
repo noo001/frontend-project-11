@@ -48,16 +48,33 @@
         <div class="row mt-5">
             <div class="col-12 col-md-6">
                 <h2 class="h4 mb-3" data-feeds-title></h2>
-                <div class="list-group" data-feeds-list></div>
+                <ul class="list-group" data-feeds-list></ul>
             </div>
             <div class="col-12 col-md-6">
                 <h2 class="h4 mb-3" data-posts-title></h2>
-                <div class="list-group" data-posts-list></div>
+                <ul class="list-group" data-posts-list></ul>
             </div>
         </div>
     </main>
 </div>
 
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" data-modal-body></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-modal-close>Закрыть</button>
+                <a href="#" class="btn btn-primary" data-modal-link target="_blank">Читать полностью</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>

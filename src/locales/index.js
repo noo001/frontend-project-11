@@ -1,9 +1,6 @@
 export default {
   ru: {
     translation: {
-      languages: {
-        ru: 'Русский',
-      },
       header: {
         title: 'RSS агрегатор',
         subtitle: 'Начните читать RSS сегодня! Это легко, это красиво.',
@@ -30,6 +27,11 @@ export default {
       },
       feeds: {
         title: 'Фиды',
+      },
+      modal: {
+        close: 'Закрыть',
+        readFull: 'Читать полностью',
+        testContent: 'Цель: Научиться извлекать из дерева необходимые данные',
       },
     },
   },

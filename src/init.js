@@ -4,6 +4,9 @@ import i18next from 'i18next';
 import watch from './view.js';
 import validate from './validate.js';
 import resources from './locales/index.js';
+import loadRss from './loader.js';
+import parseRss from './parser.js';
+import updateFeeds from './updater.js';
 
 export default () => {
   const i18nInstance = i18next.createInstance();
@@ -17,10 +20,8 @@ export default () => {
     input: document.querySelector('[data-input="url"]'),
     button: document.querySelector('[data-button="add"]'),
     feedback: document.querySelector('[data-feedback]'),
-    postsContainer: document.querySelector('[data-posts-container]'),
-    postsList: document.querySelector('[data-posts-list]'),
-    feedsContainer: document.querySelector('[data-feeds-container]'),
     feedsList: document.querySelector('[data-feeds-list]'),
+    postsList: document.querySelector('[data-posts-list]'),
     headerTitle: document.querySelector('[data-header-title]'),
     headerSubtitle: document.querySelector('[data-header-subtitle]'),
     formLabel: document.querySelector('[data-form-label]'),
@@ -29,6 +30,11 @@ export default () => {
     formButton: document.querySelector('[data-form-button]'),
     postsTitle: document.querySelector('[data-posts-title]'),
     feedsTitle: document.querySelector('[data-feeds-title]'),
+    modal: document.getElementById('postModal'),
+    modalTitle: document.getElementById('postModalLabel'),
+    modalBody: document.querySelector('[data-modal-body]'),
+    modalLink: document.querySelector('[data-modal-link]'),
+    modalClose: document.querySelector('[data-modal-close]'),
   };
 
   const initialState = {
@@ -71,7 +77,12 @@ export default () => {
     watchedState.form.data.url = url;
 
     validate(url, watchedState.feeds)
-      .then(() => {
+      .then(() => loadRss(url))
+      .then((data) => {
+        const { feed, posts } = parseRss(data, url);
+
+        watchedState.feeds = [feed, ...watchedState.feeds];
+        watchedState.posts = [...posts, ...watchedState.posts];
         watchedState.form.state = 'success';
         watchedState.form.errorCode = null;
         watchedState.form.data.url = '';
@@ -79,8 +90,19 @@ export default () => {
         elements.input.focus();
       })
       .catch((err) => {
+        let errorCode;
+        if (err.isAxiosError) {
+          errorCode = 'form.errors.network';
+        } else if (err.message && err.message.key) {
+          errorCode = err.message.key;
+        } else {
+          errorCode = 'form.errors.invalidRss';
+        }
+
         watchedState.form.state = 'error';
-        watchedState.form.errorCode = err.message.key;
+        watchedState.form.errorCode = errorCode;
       });
   });
+
+  updateFeeds(watchedState);
 };

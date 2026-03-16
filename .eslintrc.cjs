@@ -3,7 +3,6 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
-    jest: true,
   },
   extends: 'airbnb-base',
   parserOptions: {
@@ -27,11 +26,12 @@ module.exports = {
     'eol-last': ['error', 'always'],
     'import/extensions': ['error', 'ignorePackages'],
     'no-underscore-dangle': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js'],
       },
     },
   },
