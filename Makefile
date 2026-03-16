@@ -16,8 +16,8 @@ setup: prepare-docker
 dev:
 	npm run dev
 
-build: prepare-docker
-	cp index.html /project/
+build:
+	cp index.html code/
 	npm run build
 
 preview:
