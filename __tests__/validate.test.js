@@ -1,6 +1,19 @@
+import * as yup from 'yup';
 import validate from '../src/validate.js';
 
 describe('validate', () => {
+  beforeAll(() => {
+    yup.setLocale({
+      mixed: {
+        required: () => ({ key: 'form.errors.required' }),
+        notOneOf: () => ({ key: 'form.errors.duplicate' }),
+      },
+      string: {
+        url: () => ({ key: 'form.errors.invalid' }),
+      },
+    });
+  });
+
   const feeds = [
     { url: 'https://existing-feed.com/rss' },
     { url: 'https://another-feed.com/feed' },
@@ -16,21 +29,21 @@ describe('validate', () => {
   test('should reject empty string', () => {
     const url = '';
     return validate(url, feeds).catch((error) => {
-      expect(error.message).toBe('Не должно быть пустым');
+      expect(error.message.key).toBe('form.errors.required');
     });
   });
 
   test('should reject invalid url', () => {
     const url = 'not-a-url';
     return validate(url, feeds).catch((error) => {
-      expect(error.message).toBe('Ссылка должна быть валидным URL');
+      expect(error.message.key).toBe('form.errors.invalid');
     });
   });
 
   test('should reject duplicate url', () => {
     const url = 'https://existing-feed.com/rss';
     return validate(url, feeds).catch((error) => {
-      expect(error.message).toBe('RSS уже существует');
+      expect(error.message.key).toBe('form.errors.duplicate');
     });
   });
 });

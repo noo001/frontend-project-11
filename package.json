@@ -21,10 +21,11 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
-    "lodash": "^4.17.21",
     "axios": "^1.7.2",
-    "yup": "^1.4.0",
-    "valtio": "^1.13.0"
+    "bootstrap": "^5.3.3",
+    "i18next": "^25.8.18",
+    "lodash": "^4.17.21",
+    "valtio": "^1.13.0",
+    "yup": "^1.4.0"
   }
 }

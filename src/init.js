@@ -1,9 +1,17 @@
 import * as yup from 'yup';
-import { proxy, subscribe } from 'valtio';
+import { proxy } from 'valtio';
+import i18next from 'i18next';
 import watch from './view.js';
 import validate from './validate.js';
+import resources from './locales/index.js';
 
 export default () => {
+  const i18nInstance = i18next.createInstance();
+  i18nInstance.init({
+    lng: 'ru',
+    resources,
+  });
+
   const elements = {
     form: document.querySelector('[data-form="rss"]'),
     input: document.querySelector('[data-input="url"]'),
@@ -11,12 +19,22 @@ export default () => {
     feedback: document.querySelector('[data-feedback]'),
     postsContainer: document.querySelector('[data-posts-container]'),
     postsList: document.querySelector('[data-posts-list]'),
+    feedsContainer: document.querySelector('[data-feeds-container]'),
+    feedsList: document.querySelector('[data-feeds-list]'),
+    headerTitle: document.querySelector('[data-header-title]'),
+    headerSubtitle: document.querySelector('[data-header-subtitle]'),
+    formLabel: document.querySelector('[data-form-label]'),
+    formPlaceholder: document.querySelector('[data-form-placeholder]'),
+    formExample: document.querySelector('[data-form-example]'),
+    formButton: document.querySelector('[data-form-button]'),
+    postsTitle: document.querySelector('[data-posts-title]'),
+    feedsTitle: document.querySelector('[data-feeds-title]'),
   };
 
   const initialState = {
     form: {
-      state: 'filling', // filling, sending, success, error
-      error: null,
+      state: 'filling',
+      errorCode: null,
       data: {
         url: '',
       },
@@ -30,17 +48,17 @@ export default () => {
 
   const state = proxy(initialState);
 
-  const watchedState = watch(state, elements);
-
   yup.setLocale({
     mixed: {
-      required: 'Не должно быть пустым',
-      notOneOf: 'RSS уже существует',
+      required: () => ({ key: 'form.errors.required' }),
+      notOneOf: () => ({ key: 'form.errors.duplicate' }),
     },
     string: {
-      url: 'Ссылка должна быть валидным URL',
+      url: () => ({ key: 'form.errors.invalid' }),
     },
   });
+
+  const watchedState = watch(state, elements, i18nInstance);
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -49,19 +67,20 @@ export default () => {
     const url = formData.get('url');
 
     watchedState.form.state = 'sending';
+    watchedState.form.errorCode = null;
     watchedState.form.data.url = url;
 
     validate(url, watchedState.feeds)
       .then(() => {
         watchedState.form.state = 'success';
-        watchedState.form.error = null;
+        watchedState.form.errorCode = null;
         watchedState.form.data.url = '';
         elements.form.reset();
         elements.input.focus();
       })
       .catch((err) => {
         watchedState.form.state = 'error';
-        watchedState.form.error = err.message;
+        watchedState.form.errorCode = err.message.key;
       });
   });
 };
