@@ -1,19 +1,20 @@
 import { defineConfig } from 'vite'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  root: process.cwd(),
+  root: __dirname,
   server: {
     port: 3000,
     open: true,
   },
   build: {
-    outDir: 'dist',
+    outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        main: path.resolve(process.cwd(), 'index.html'),
-      },
+      input: path.resolve(__dirname, 'index.html'),
     },
   },
 })

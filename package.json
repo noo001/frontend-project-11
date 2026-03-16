@@ -1,14 +1,13 @@
 {
+
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "RSS aggregator with promises",
-  "main": "src/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.jsx,.cjs,.mjs --fix src",
+    "lint": "eslint .",
     "test": "echo \"No tests yet\""
   },
   "author": "",

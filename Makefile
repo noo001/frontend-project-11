@@ -7,6 +7,7 @@ prepare-docker:
 	cp -r src code/
 	cp package.json code/
 	cp package-lock.json code/
+	cp vite.config.js code/
 
 setup: prepare-docker
 	cd code && npm install
