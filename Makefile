@@ -3,12 +3,12 @@ install:
 
 prepare-docker:
 	mkdir -p code
-	copy index.html code\
-	copy -r src code\
-	copy package.json code\
-	copy package-lock.json code\
-	copy vite.config.js code\
-	copy .eslintrc.cjs code\
+	echo "<!DOCTYPE html><html lang='ru'><head><meta charset='UTF-8' /><title>RSS агрегатор</title></head><body><div id='root'></div><script type='module' src='/src/main.js'></script></body></html>" > code/index.html
+	cp -r src code/
+	cp package.json code/
+	cp package-lock.json code/
+	cp vite.config.js code/
+	cp .eslintrc.cjs code/
 
 debug-build:
 	@echo "Current directory: $$PWD"
