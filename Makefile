@@ -3,7 +3,7 @@ install:
 
 prepare-docker:
 	mkdir -p code
-	echo '<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8" /><title>RSS агрегатор</title></head><body><div id="root"></div><script type="module" src="/src/main.js"></script></body></html>' > code/index.html
+	printf '%s' '<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8" /><title>RSS агрегатор</title></head><body><div id="root"></div><script type="module" src="/src/main.js"></script></body></html>' > code/index.html
 	cp -r src code/
 	cp package.json code/
 	cp package-lock.json code/
