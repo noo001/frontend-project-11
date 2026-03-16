@@ -1,16 +1,20 @@
 install:
 	npm ci
 
+setup: prepare-docker
+	cd code && npm install
+
 prepare-docker:
 	mkdir -p code
 	cp index.html code/
 	cp -r src code/
-	cp package.json package-lock.json code/
+	cp package.json code/
+	cp package-lock.json code/
 
 dev:
 	npm run dev
 
-build: prepare-docker
+build:
 	npm run build
 
 preview:
@@ -27,4 +31,4 @@ test-coverage:
 
 ci: install lint build
 
-.PHONY: install prepare-docker dev build preview lint test test-coverage ci
+.PHONY: install setup prepare-docker dev build preview lint test test-coverage ci
