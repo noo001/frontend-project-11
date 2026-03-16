@@ -1,9 +1,11 @@
 install:
 	npm ci
 
-prepare-docker:
+prepare:
 	mkdir -p code
-	printf '%s' '<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8" /><title>RSS агрегатор</title></head><body><div id="root"></div><script type="module" src="/src/main.js"></script></body></html>' > code/index.html
+	cp index.html code/
+
+prepare-docker: prepare
 	cp -r src code/
 	cp package.json code/
 	cp package-lock.json code/
@@ -16,8 +18,7 @@ setup: prepare-docker
 dev:
 	npm run dev
 
-build:
-	cp index.html code/
+build: prepare
 	npm run build
 
 preview:
@@ -37,4 +38,4 @@ test-coverage:
 
 ci: install lint build
 
-.PHONY: install prepare-docker setup dev build preview lint lint-fix test test-coverage ci
+.PHONY: install prepare prepare-docker setup dev build preview lint lint-fix test test-coverage ci
