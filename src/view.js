@@ -1,7 +1,7 @@
 import { subscribe } from 'valtio';
 
 const renderForm = (state, elements, i18n) => {
-  const { form, input, button, feedback } = elements;
+  const { input, button, feedback } = elements;
 
   switch (state.form.state) {
     case 'sending':
