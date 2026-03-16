@@ -11,6 +11,7 @@ prepare-docker: prepare
 	cp package-lock.json code/
 	cp vite.config.js code/
 	cp .eslintrc.cjs code/
+	node scripts/create-html.js
 
 setup: prepare-docker
 	cd code && npm install
