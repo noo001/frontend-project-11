@@ -1,5 +1,5 @@
-import * as yup from 'yup';
-import validate from '../src/validate.js';
+import * as yup from 'yup'
+import validate from '../src/validate.js'
 
 describe('validate', () => {
   beforeAll(() => {
@@ -11,39 +11,39 @@ describe('validate', () => {
       string: {
         url: () => ({ key: 'form.errors.invalid' }),
       },
-    });
-  });
+    })
+  })
 
   const feeds = [
     { url: 'https://existing-feed.com/rss' },
     { url: 'https://another-feed.com/feed' },
-  ];
+  ]
 
   test('should validate correct url', () => {
-    const url = 'https://lorem-rss.hexlet.app/feed';
+    const url = 'https://lorem-rss.hexlet.app/feed'
     return validate(url, feeds).then((result) => {
-      expect(result).toBe(url);
-    });
-  });
+      expect(result).toBe(url)
+    })
+  })
 
   test('should reject empty string', () => {
-    const url = '';
+    const url = ''
     return validate(url, feeds).catch((error) => {
-      expect(error.message.key).toBe('form.errors.required');
-    });
-  });
+      expect(error.message.key).toBe('form.errors.required')
+    })
+  })
 
   test('should reject invalid url', () => {
-    const url = 'not-a-url';
+    const url = 'not-a-url'
     return validate(url, feeds).catch((error) => {
-      expect(error.message.key).toBe('form.errors.invalid');
-    });
-  });
+      expect(error.message.key).toBe('form.errors.invalid')
+    })
+  })
 
   test('should reject duplicate url', () => {
-    const url = 'https://existing-feed.com/rss';
+    const url = 'https://existing-feed.com/rss'
     return validate(url, feeds).catch((error) => {
-      expect(error.message.key).toBe('form.errors.duplicate');
-    });
-  });
-});
+      expect(error.message.key).toBe('form.errors.duplicate')
+    })
+  })
+})

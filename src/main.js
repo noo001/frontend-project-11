@@ -1,4 +1,4 @@
-import './styles/main.css';
-import init from './init.js';
+import './styles/main.css'
+import init from './init.js'
 
-init();
+init()

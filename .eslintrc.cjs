@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    jest: true,
   },
   extends: 'airbnb-base',
   parserOptions: {
@@ -27,6 +28,16 @@ module.exports = {
     'import/extensions': ['error', 'ignorePackages'],
     'no-underscore-dangle': 'off',
     'no-param-reassign': ['error', { props: false }],
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: [
+        '**/*.test.js',
+        '**/*.spec.js',
+        'vite.config.js',
+        '**/vite.config.js',
+        '**/vitest.config.js',
+      ],
+    }],
   },
   settings: {
     'import/resolver': {

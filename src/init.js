@@ -1,19 +1,19 @@
-import * as yup from 'yup';
-import { proxy } from 'valtio';
-import i18next from 'i18next';
-import watch from './view.js';
-import validate from './validate.js';
-import resources from './locales/index.js';
-import loadRss from './loader.js';
-import parseRss from './parser.js';
-import updateFeeds from './updater.js';
+import * as yup from 'yup'
+import { proxy } from 'valtio'
+import i18next from 'i18next'
+import watch from './view.js'
+import validate from './validate.js'
+import resources from './locales/index.js'
+import loadRss from './loader.js'
+import parseRss from './parser.js'
+import updateFeeds from './updater.js'
 
 export default () => {
-  const i18nInstance = i18next.createInstance();
+  const i18nInstance = i18next.createInstance()
   i18nInstance.init({
     lng: 'ru',
     resources,
-  });
+  })
 
   const elements = {
     form: document.querySelector('[data-form="rss"]'),
@@ -35,7 +35,7 @@ export default () => {
     modalBody: document.querySelector('[data-modal-body]'),
     modalLink: document.querySelector('[data-modal-link]'),
     modalClose: document.querySelector('[data-modal-close]'),
-  };
+  }
 
   const initialState = {
     form: {
@@ -50,9 +50,9 @@ export default () => {
     ui: {
       visitedPosts: new Set(),
     },
-  };
+  }
 
-  const state = proxy(initialState);
+  const state = proxy(initialState)
 
   yup.setLocale({
     mixed: {
@@ -62,47 +62,47 @@ export default () => {
     string: {
       url: () => ({ key: 'form.errors.invalid' }),
     },
-  });
+  })
 
-  const watchedState = watch(state, elements, i18nInstance);
+  const watchedState = watch(state, elements, i18nInstance)
 
   elements.form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData(e.target);
-    const url = formData.get('url');
+    const formData = new FormData(e.target)
+    const url = formData.get('url')
 
-    watchedState.form.state = 'sending';
-    watchedState.form.errorCode = null;
-    watchedState.form.data.url = url;
+    watchedState.form.state = 'sending'
+    watchedState.form.errorCode = null
+    watchedState.form.data.url = url
 
     validate(url, watchedState.feeds)
       .then(() => loadRss(url))
       .then((data) => {
-        const { feed, posts } = parseRss(data, url);
+        const { feed, posts } = parseRss(data, url)
 
-        watchedState.feeds = [feed, ...watchedState.feeds];
-        watchedState.posts = [...posts, ...watchedState.posts];
-        watchedState.form.state = 'success';
-        watchedState.form.errorCode = null;
-        watchedState.form.data.url = '';
-        elements.form.reset();
-        elements.input.focus();
+        watchedState.feeds = [feed, ...watchedState.feeds]
+        watchedState.posts = [...posts, ...watchedState.posts]
+        watchedState.form.state = 'success'
+        watchedState.form.errorCode = null
+        watchedState.form.data.url = ''
+        elements.form.reset()
+        elements.input.focus()
       })
       .catch((err) => {
-        let errorCode;
+        let errorCode
         if (err.isAxiosError) {
-          errorCode = 'form.errors.network';
+          errorCode = 'form.errors.network'
         } else if (err.message && err.message.key) {
-          errorCode = err.message.key;
+          errorCode = err.message.key
         } else {
-          errorCode = 'form.errors.invalidRss';
+          errorCode = 'form.errors.invalidRss'
         }
 
-        watchedState.form.state = 'error';
-        watchedState.form.errorCode = errorCode;
-      });
-  });
+        watchedState.form.state = 'error'
+        watchedState.form.errorCode = errorCode
+      })
+  })
 
-  updateFeeds(watchedState);
-};
+  updateFeeds(watchedState)
+}

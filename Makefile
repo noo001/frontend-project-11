@@ -8,6 +8,7 @@ prepare-docker:
 	cp package.json code/
 	cp package-lock.json code/
 	cp vite.config.js code/
+	cp .eslintrc.cjs code/
 
 setup: prepare-docker
 	cd code && npm install
@@ -27,6 +28,9 @@ preview:
 lint:
 	npm run lint
 
+lint-fix:
+	npm run lint:fix
+
 test:
 	npm test
 
@@ -35,4 +39,4 @@ test-coverage:
 
 ci: install lint build
 
-.PHONY: install prepare-docker setup dev build build-docker preview lint test test-coverage ci
+.PHONY: install prepare-docker setup dev build build-docker preview lint lint-fix test test-coverage ci
