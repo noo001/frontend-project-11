@@ -3,12 +3,12 @@ install:
 
 prepare-docker:
 	mkdir -p code
-	cp index.html code/
-	cp -r src code/
-	cp package.json code/
-	cp package-lock.json code/
-	cp vite.config.js code/
-	cp .eslintrc.cjs code/
+	copy index.html code\
+	copy -r src code\
+	copy package.json code\
+	copy package-lock.json code\
+	copy vite.config.js code\
+	copy .eslintrc.cjs code\
 
 debug-build:
 	@echo "Current directory: $$PWD"
