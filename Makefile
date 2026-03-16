@@ -10,6 +10,11 @@ prepare-docker:
 	cp vite.config.js code/
 	cp .eslintrc.cjs code/
 
+debug-build:
+	@echo "Current directory: $$PWD"
+	@dir
+	npm run build
+
 setup: prepare-docker
 	cd code && npm install
 
@@ -18,6 +23,11 @@ dev:
 
 build:
 	npm run build
+
+copy-html:
+	copy index.html dist
+
+full-build: build copy-html
 
 build-docker: prepare-docker
 	cd code && npm run build
