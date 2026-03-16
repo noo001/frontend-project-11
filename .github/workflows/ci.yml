@@ -20,7 +20,9 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: make install
+        run: |
+          npm install --legacy-peer-deps
+          # или npm install --force
 
       - name: Run linter
         run: make lint
