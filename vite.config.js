@@ -1,11 +1,14 @@
 import { defineConfig } from 'vite'
-import path from 'path'
+import fs from 'fs'
 
-const isDocker = process.cwd().includes('/project')
-const rootDir = isDocker ? '/project/code' : process.cwd()
+const htmlContent = '<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8" /><title>RSS агрегатор</title></head><body><div id="root"></div><script type="module" src="/src/main.js"></script></body></html>'
+const htmlPath = 'code/index.html'
+
+fs.mkdirSync('code', { recursive: true })
+fs.writeFileSync(htmlPath, htmlContent, 'utf8')
 
 export default defineConfig({
-  root: rootDir,
+  root: process.cwd(),
   server: {
     port: 3000,
     open: true,
@@ -14,7 +17,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: path.join(rootDir, 'src/main.js'),
+      input: 'src/main.js',
       external: ['react'],
     },
   },
