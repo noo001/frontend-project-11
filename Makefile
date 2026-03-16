@@ -13,6 +13,12 @@ preview:
 lint:
 	npm run lint
 
-ci: install lint build
+test:
+	npm test
 
-.PHONY: install dev build preview lint ci
+test-coverage:
+	npm test -- --coverage
+
+ci: install lint test build
+
+.PHONY: install dev build preview lint test test-coverage ci
