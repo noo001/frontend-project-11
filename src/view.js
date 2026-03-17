@@ -73,12 +73,14 @@ export const renderFeeds = (feeds, elements) => {
     return
   }
 
-  feedsList.innerHTML =  feeds.map((feed) => `
+  feedsList.innerHTML = feeds.map((feed) => {
+    return `
       <li class="list-group-item">
         <h3 class="h6 mb-1">${feed.title}</h3>
         <p class="small text-muted mb-0">${feed.description}</p>
       </li>
-    `).join('')
+    `
+  }).join('')
 }
 
 export const renderPosts = (posts, elements, state, i18n) => {
@@ -132,7 +134,9 @@ export const renderPosts = (posts, elements, state, i18n) => {
       const { postId } = link.dataset
       state.ui.visitedPosts.add(postId)
 
-      const post = state.posts.find((p) => p.id === postId)
+      const post = state.posts.find((p) => {
+        return p.id === postId
+      })
       if (post) {
         window.open(post.link, '_blank')
       }
@@ -144,7 +148,9 @@ export const renderPosts = (posts, elements, state, i18n) => {
   postsList.querySelectorAll('[data-post-preview]').forEach((button) => {
     button.addEventListener('click', () => {
       const { postId } = button.dataset
-      const post = state.posts.find((p) => p.id === postId)
+      const post = state.posts.find((p) => {
+        return p.id === postId
+      })
 
       if (post) {
         state.ui.visitedPosts.add(postId)
