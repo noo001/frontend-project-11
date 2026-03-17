@@ -6,11 +6,14 @@ prepare:
 	cp index.html code/
 
 prepare-docker: prepare
-	cp -r src code/
-	cp package.json code/
-	cp package-lock.json code/
-	cp vite.config.js code/
-	cp .eslintrc.cjs code/
+	@echo "=== COPYING FILES TO CODE ==="
+	cp -v src code/ 2>&1 || true
+	cp -v package.json code/
+	cp -v package-lock.json code/
+	cp -v vite.config.js code/
+	cp -v .eslintrc.cjs code/
+	@echo "=== FILES IN CODE DIRECTORY ==="
+	ls -la code/
 
 setup: prepare-docker
 	cd code && npm ci
