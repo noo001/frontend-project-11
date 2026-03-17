@@ -6,6 +6,11 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
+  resolve: {
+    alias: {
+      react: 'react',
+    },
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -13,5 +18,6 @@ export default defineConfig({
       input: `${process.cwd()}/src/main.js`,
       external: ['react'],
     },
+    sourcemap: false,
   },
 })
