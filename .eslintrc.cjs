@@ -25,7 +25,7 @@ module.exports = {
     'indent': ['error', 2, { SwitchCase: 1 }],
     'comma-dangle': ['error', 'always-multiline'],
     'arrow-parens': ['error', 'always'],
-    'brace-style': ['error', '1tbs'],
+    'brace-style': 'off',
     'no-unused-vars': ['error', {
       argsIgnorePattern: '^_',
       varsIgnorePattern: '^_',
@@ -50,5 +50,7 @@ module.exports = {
     'import/no-unresolved': ['error', {
       ignore: ['vite'],
     }],
+    'object-curly-newline': 'off',
+    'arrow-body-style': 'off',
   },
 }
