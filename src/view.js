@@ -104,7 +104,7 @@ export const renderPosts = (posts, elements, state, i18n) => {
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <a 
           href="${post.link}" 
-          class="${isVisited ? 'fw-normal' : 'fw-bold'}" 
+          class="${isVisited ? 'link-secondary' : 'fw-bold'}"
           target="_blank" 
           rel="noopener noreferrer"
           data-post-id="${post.id}"
