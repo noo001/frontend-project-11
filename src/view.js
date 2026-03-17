@@ -70,7 +70,7 @@ const renderStaticTexts = (elements, i18n) => {
   feedsTitle.textContent = i18n.t('feeds.title')
 }
 
-const renderFeeds = (feeds, elements) => {
+export const renderFeeds = (feeds, elements) => {
   const { feedsList } = elements
 
   if (feeds.length === 0) {
@@ -88,10 +88,15 @@ const renderFeeds = (feeds, elements) => {
   feedsList.innerHTML = feedsHtml
 }
 
-const renderPosts = (posts, elements, state, i18n) => {
+export const renderPosts = (posts, elements, state, i18n) => {
+  console.log('=== RENDER POSTS CALLED ===')
+  console.log('posts count:', posts.length)
+  console.log('posts data:', posts)
+
   const { postsList } = elements
 
   if (posts.length === 0) {
+    console.log('no posts to render')
     postsList.innerHTML = ''
     return
   }
@@ -131,7 +136,11 @@ const renderPosts = (posts, elements, state, i18n) => {
     `
   }).join('')
 
+  console.log('postsHtml:', postsHtml)
+
   postsList.innerHTML = postsHtml
+
+  console.log('postsList after render:', postsList.innerHTML)
 
   postsList.querySelectorAll('[data-post-link]').forEach((link) => {
     link.addEventListener('click', (e) => {

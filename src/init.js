@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { proxy } from 'valtio'
 import i18next from 'i18next'
-import watch from './view.js'
+import watch, {renderFeeds, renderPosts} from './view.js'
 import validate from './validate.js'
 import resources from './locales/index.js'
 import loadRss from './loader.js'
@@ -90,6 +90,13 @@ export default () => {
         watchedState.form.data.url = ''
         elements.form.reset()
         elements.input.focus()
+
+        renderPosts(watchedState.posts, elements, watchedState, i18nInstance)
+        renderFeeds(watchedState.feeds, elements)
+
+        console.log('=== POSTS UPDATED ===')
+        console.log('new posts count:', watchedState.posts.length)
+        console.log('new posts:', watchedState.posts)
       })
       .catch((err) => {
         console.log('=== ERROR CATCH ===')
