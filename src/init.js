@@ -90,11 +90,11 @@ export default () => {
         elements.input.focus()
       })
       .catch((err) => {
-        console.log('=== ERROR CATCH ===');
-        console.log('err:', err);
-        console.log('err.isAxiosError:', err.isAxiosError);
-        console.log('err.message:', err.message);
-        console.log('err.message.key:', err.message?.key);
+        console.log('=== ERROR CATCH ===')
+        console.log('err:', err)
+        console.log('err.isAxiosError:', err.isAxiosError)
+        console.log('err.message:', err.message)
+        console.log('err.message.key:', err.message?.key)
 
         let errorCode
         if (err.isAxiosError) {
@@ -105,7 +105,7 @@ export default () => {
           errorCode = 'form.errors.invalidRss'
         }
 
-        console.log('errorCode:', errorCode);
+        console.log('errorCode:', errorCode)
 
         watchedState.form.state = 'error'
         watchedState.form.errorCode = errorCode
