@@ -73,14 +73,12 @@ export const renderFeeds = (feeds, elements) => {
     return
   }
 
-  const feedsHtml = feeds.map((feed) => `
-    <li class="list-group-item">
-      <h3 class="h6 mb-1">${feed.title}</h3>
-      <p class="small text-muted mb-0">${feed.description}</p>
-    </li>
-  `).join('')
-
-  feedsList.innerHTML = feedsHtml
+  feedsList.innerHTML =  feeds.map((feed) => `
+      <li class="list-group-item">
+        <h3 class="h6 mb-1">${feed.title}</h3>
+        <p class="small text-muted mb-0">${feed.description}</p>
+      </li>
+    `).join('')
 }
 
 export const renderPosts = (posts, elements, state, i18n) => {

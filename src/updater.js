@@ -7,10 +7,16 @@ const updateFeed = (state, feed) => {
       const { posts: newPosts } = parseRss(data, feed.url)
 
       const existingPostsUrls = state.posts
-        .filter((post) => post.feedId === feed.id)
-        .map((post) => post.link)
+        .filter((post) => {
+          return post.feedId === feed.id
+        })
+        .map((post) => {
+          return post.link
+        })
 
-      const freshPosts = newPosts.filter((post) => !existingPostsUrls.includes(post.link))
+      const freshPosts = newPosts.filter((post) => {
+        return !existingPostsUrls.includes(post.link)
+      })
 
       if (freshPosts.length > 0) {
         state.posts = [...freshPosts, ...state.posts]

@@ -28,7 +28,7 @@ module.exports = {
     'brace-style': ['error', '1tbs'],
     'no-unused-vars': ['error', {
       argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_'
+      varsIgnorePattern: '^_',
     }],
     'no-console': 'off',
     'space-in-parens': ['error', 'never'],

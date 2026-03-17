@@ -17,14 +17,16 @@ const parseRss = (data, feedUrl) => {
   }
 
   const items = doc.querySelectorAll('item')
-  const posts = Array.from(items).map((item) => ({
-    id: `post-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    feedId: feed.id,
-    title: item.querySelector('title')?.textContent || 'Без названия',
-    description: item.querySelector('description')?.textContent || 'Без описания',
-    link: item.querySelector('link')?.textContent || '#',
-    pubDate: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
-  }))
+  const posts = Array.from(items).map((item) => {
+    return {
+      id: `post-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      feedId: feed.id,
+      title: item.querySelector('title')?.textContent || 'Без названия',
+      description: item.querySelector('description')?.textContent || 'Без описания',
+      link: item.querySelector('link')?.textContent || '#',
+      pubDate: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
+    }
+  })
 
   return { feed, posts }
 }

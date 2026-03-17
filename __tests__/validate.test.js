@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 import * as yup from 'yup'
 import validate from '../src/validate.js'
 

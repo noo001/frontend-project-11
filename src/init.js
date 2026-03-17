@@ -96,9 +96,11 @@ export default () => {
         let errorCode
         if (err.isAxiosError) {
           errorCode = 'form.errors.network'
-        } else if (err.message && err.message.key) {
+        }
+        else if (err.message && err.message.key) {
           errorCode = err.message.key
-        } else {
+        }
+        else {
           errorCode = 'form.errors.invalidRss'
         }
 
