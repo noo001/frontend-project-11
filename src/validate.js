@@ -11,11 +11,11 @@ export default (url, feeds) => {
   const schema = yup.string().required().url().notOneOf(urls)
 
   return schema.validate(url)
-    .then(result => {
+    .then((result) => {
       console.log('validation success:', result)
       return result
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('validation error:', err)
       throw err
     })
