@@ -15,8 +15,8 @@ const parseRss = (data, feedUrl) => {
     title: doc.querySelector('channel > title')?.textContent || 'Без названия',
     description: doc.querySelector('channel > description')?.textContent || 'Без описания',
   }
-  const items = doc.querySelectorAll('item')
 
+  const items = doc.querySelectorAll('item')
   const posts = Array.from(items).map((item) => ({
     id: `post-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     feedId: feed.id,

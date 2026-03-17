@@ -6,8 +6,4 @@ export default (url, feeds) => {
   const schema = yup.string().required().url().notOneOf(urls)
 
   return schema.validate(url)
-    .then((result) => result)
-    .catch((err) => {
-      throw err
-    })
 }

@@ -17,7 +17,7 @@ const updateFeed = (state, feed) => {
       }
     })
     .catch((err) => {
-      throw err
+      console.error('Update error for feed', feed.url, err)
     })
     .finally(() => {
       setTimeout(() => updateFeed(state, feed), 5000)
