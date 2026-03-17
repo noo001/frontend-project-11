@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  ignorePatterns: ['node_modules', 'dist', 'code', '__tests__', '*.config.js'],
+  ignorePatterns: ['node_modules', 'dist', 'code', '*.config.js'],
   settings: {
     'import/resolver': {
       node: {
