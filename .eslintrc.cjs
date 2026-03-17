@@ -29,7 +29,7 @@ module.exports = {
       argsIgnorePattern: '^_',
       varsIgnorePattern: '^_'
     }],
-    'no-console': 'off',
+    'no-console': 'error',
     'space-in-parens': ['error', 'never'],
     'padded-blocks': ['error', 'never'],
     'eol-last': ['error', 'always'],
@@ -50,4 +50,5 @@ module.exports = {
       ignore: ['vite'],
     }],
   },
+  ignorePatterns: ['node_modules', 'dist', 'code', '__tests__', '*.config.js'],
 }

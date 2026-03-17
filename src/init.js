@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { proxy } from 'valtio'
 import i18next from 'i18next'
-import watch, {renderFeeds, renderPosts} from './view.js'
+import watch, { renderFeeds, renderPosts } from './view.js'
 import validate from './validate.js'
 import resources from './locales/index.js'
 import loadRss from './loader.js'
@@ -30,7 +30,7 @@ export default () => {
     formButton: document.querySelector('[data-form-button]'),
     postsTitle: document.querySelector('[data-posts-title]'),
     feedsTitle: document.querySelector('[data-feeds-title]'),
-    modal: document.getElementById('postModal'),
+    modal: document.getElementById('modal'),
     modalTitle: document.getElementById('postModalLabel'),
     modalBody: document.querySelector('[data-modal-body]'),
     modalLink: document.querySelector('[data-modal-link]'),
@@ -68,11 +68,9 @@ export default () => {
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log('=== FORM SUBMITTED ===')
 
     const formData = new FormData(e.target)
     const url = formData.get('url')
-    console.log('url:', url)
 
     watchedState.form.state = 'sending'
     watchedState.form.errorCode = null
@@ -91,20 +89,10 @@ export default () => {
         elements.form.reset()
         elements.input.focus()
 
-        renderPosts(watchedState.posts, elements, watchedState, i18nInstance)
         renderFeeds(watchedState.feeds, elements)
-
-        console.log('=== POSTS UPDATED ===')
-        console.log('new posts count:', watchedState.posts.length)
-        console.log('new posts:', watchedState.posts)
+        renderPosts(watchedState.posts, elements, watchedState, i18nInstance)
       })
       .catch((err) => {
-        console.log('=== ERROR CATCH ===')
-        console.log('err:', err)
-        console.log('err.isAxiosError:', err.isAxiosError)
-        console.log('err.message:', err.message)
-        console.log('err.message.key:', err.message?.key)
-
         let errorCode
         if (err.isAxiosError) {
           errorCode = 'form.errors.network'
@@ -113,8 +101,6 @@ export default () => {
         } else {
           errorCode = 'form.errors.invalidRss'
         }
-
-        console.log('errorCode:', errorCode)
 
         watchedState.form.state = 'error'
         watchedState.form.errorCode = errorCode

@@ -1,11 +1,6 @@
 import { subscribe } from 'valtio'
 
 const renderForm = (state, elements, i18n) => {
-  console.log('=== RENDER FORM ===')
-  console.log('state.form.state:', state.form.state)
-  console.log('state.form.errorCode:', state.form.errorCode)
-  console.log('i18n text:', i18n.t(state.form.errorCode))
-
   const {
     input,
     button,
@@ -89,14 +84,9 @@ export const renderFeeds = (feeds, elements) => {
 }
 
 export const renderPosts = (posts, elements, state, i18n) => {
-  console.log('=== RENDER POSTS CALLED ===')
-  console.log('posts count:', posts.length)
-  console.log('posts data:', posts)
-
   const { postsList } = elements
 
   if (posts.length === 0) {
-    console.log('no posts to render')
     postsList.innerHTML = ''
     return
   }
@@ -128,7 +118,7 @@ export const renderPosts = (posts, elements, state, i18n) => {
           data-post-id="${post.id}"
           data-post-preview
           data-bs-toggle="modal" 
-          data-bs-target="#postModal"
+          data-bs-target="#modal"
         >
           ${i18n.t('posts.view')}
         </button>
@@ -136,11 +126,7 @@ export const renderPosts = (posts, elements, state, i18n) => {
     `
   }).join('')
 
-  console.log('postsHtml:', postsHtml)
-
   postsList.innerHTML = postsHtml
-
-  console.log('postsList after render:', postsList.innerHTML)
 
   postsList.querySelectorAll('[data-post-link]').forEach((link) => {
     link.addEventListener('click', (e) => {
