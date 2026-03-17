@@ -1,13 +1,30 @@
+install:
+	npm ci
+
 setup:
-	@echo "=== STARTING SETUP ==="
-	mkdir -p code
-	@echo "Created code directory"
-	cp index.html code/
-	@echo "Copied index.html"
-	ls -la code/
-	@echo "=== RUNNING NPM CI ==="
-	cd code && npm ci
+	npm ci
 
 build:
-	@echo "=== STARTING BUILD ==="
-	cd code && npm run build
+	npm run build
+
+dev:
+	npm run dev
+
+preview:
+	npm run preview
+
+lint:
+	npm run lint
+
+lint-fix:
+	npm run lint:fix
+
+test:
+	npm test
+
+test-coverage:
+	npm test -- --coverage
+
+ci: install lint build
+
+.PHONY: install setup dev build preview lint lint-fix test test-coverage ci
