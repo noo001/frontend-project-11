@@ -2,7 +2,8 @@ install:
 	npm ci
 
 setup:
-	npm ci
+	cp index.html code/
+	cd code && npm ci
 
 build:
 	npm run build
