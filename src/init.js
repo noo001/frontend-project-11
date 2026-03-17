@@ -68,9 +68,11 @@ export default () => {
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault()
+    console.log('=== FORM SUBMITTED ===')
 
     const formData = new FormData(e.target)
     const url = formData.get('url')
+    console.log('url:', url)
 
     watchedState.form.state = 'sending'
     watchedState.form.errorCode = null
