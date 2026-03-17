@@ -10,6 +10,14 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js'],
+        moduleDirectory: ['node_modules', '.'],
+      },
+    },
+  },
   rules: {
     'semi': ['error', 'never'],
     'quotes': ['error', 'single'],
@@ -38,12 +46,5 @@ module.exports = {
         '**/vitest.config.js',
       ],
     }],
-  },
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js'],
-      },
-    },
   },
 }
