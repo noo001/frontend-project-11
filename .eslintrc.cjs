@@ -46,5 +46,8 @@ module.exports = {
         '**/vitest.config.js',
       ],
     }],
+    'import/no-unresolved': ['error', {
+      ignore: ['vite'],
+    }],
   },
 }
