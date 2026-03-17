@@ -1,7 +1,12 @@
 import { subscribe } from 'valtio'
 
 const renderForm = (state, elements, i18n) => {
-  const { input, button, feedback } = elements
+  console.log('=== RENDER FORM ===')
+  console.log('state.form.state:', state.form.state)
+  console.log('state.form.errorCode:', state.form.errorCode)
+  console.log('i18n text:', i18n.t(state.form.errorCode))
+
+  const { form, input, button, feedback } = elements
 
   switch (state.form.state) {
     case 'sending':
@@ -127,7 +132,7 @@ const renderPosts = (posts, elements, state, i18n) => {
   postsList.querySelectorAll('[data-post-link]').forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault()
-      const { postId } = link.dataset
+      const postId = link.dataset.postId
       state.ui.visitedPosts.add(postId)
 
       const post = state.posts.find((p) => p.id === postId)
@@ -141,7 +146,7 @@ const renderPosts = (posts, elements, state, i18n) => {
 
   postsList.querySelectorAll('[data-post-preview]').forEach((button) => {
     button.addEventListener('click', () => {
-      const { postId } = button.dataset
+      const postId = button.dataset.postId
       const post = state.posts.find((p) => p.id === postId)
 
       if (post) {
